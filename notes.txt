@@ -1,0 +1,32 @@
+# Parsing the JSON input:
+
+The input is in JSON format, representing points with different bases.
+The n key represents the number of points available.
+The k key represents the minimum number of points needed to reconstruct the polynomial.
+Each point is given in the form of an index (like "1", "2", "3", etc.), and the values are encoded in different bases.
+
+# Decoding values:
+
+Each value is decoded from its specified base into decimal form. This creates an array points, where each point is stored as an array [x, y] where x is the index and y is the decoded value.
+
+# Lagrange Interpolation Function:
+
+lagrangeInterpolation(points, x): This function computes the value of the polynomial at x using Lagrange interpolation on the given set of points.
+It calculates the Lagrange basis polynomial for each point and sums them up to get the interpolated value. The Lagrange formula works by creating terms for each point that are "weighted" according to their x-coordinates and the differences between them.
+Consistency Check:
+
+# isConsistent(testPoint, consistentPoints): This function checks whether a point (x, y) is consistent with a polynomial that passes through a given set of points.
+It does this by interpolating the polynomial at the x-coordinate of the test point and comparing the interpolated value with the actual y-value.
+Small floating-point errors are allowed, using a tolerance threshold (1e-6).
+Backtracking to Find Consistent Points:
+
+# findConsistentPoints(points, k): This function searches for the most consistent set of k points.
+It uses a backtracking algorithm to try all combinations of k points and then checks each combination's consistency with the rest of the points.
+For each combination of k points, it checks how many of the remaining points are consistent with the polynomial formed by those points. The combination that results in the highest number of consistent points is chosen as the best set.
+Calculate the Constant Term:
+
+# After identifying the most consistent set of k points, the code calculates the constant term of the polynomial (the y-value when x = 0) using Lagrange interpolation.
+Identify Incorrect Roots:
+
+# The remaining points that are not consistent with the polynomial formed by the k points are flagged as incorrect roots.
+These incorrect points are collected and returned as incorrectRoots.
